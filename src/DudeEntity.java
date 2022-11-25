@@ -18,12 +18,20 @@ public abstract class DudeEntity extends MovableEntity implements TransformableE
 
         if (horiz == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
             int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
+            List<Point> newPointsList = AStarPathingStrategy.computePath(this.getPosition(), destPos,
+                    p ->  world.withinBounds(p) && !(world.getOccupancyCell(p) instanceof ObstacleEntity),
+                    (p1, p2) -> neighbors(p1,p2),
+                    PathingStrategy.CARDINAL_NEIGHBORS);
+
+
+            newPos = newPointsList.get(0);
 
             if (vert == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
                 newPos = this.getPosition();
             }
         }
+
+//        AStarPathingStrategy.computePath(this.getPosition(), destPos, )
 
         return newPos;
     }

@@ -21,7 +21,7 @@ public abstract class MovableEntity extends AnimatableEntity {
 //                p.x >= 0 && p.x < grid[0].length;
 //    }
 
-    private static boolean neighbors(Point p1, Point p2)
+    public static boolean neighbors(Point p1, Point p2)
     {
         return p1.x+1 == p2.x && p1.y == p2.y ||
                 p1.x-1 == p2.x && p1.y == p2.y ||

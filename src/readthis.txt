@@ -1,0 +1,3 @@
+Possibly implemented AStar, but top left dude will
+randomly freeze/completely stop moving on certain
+runs (weird)
