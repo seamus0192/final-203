@@ -1,74 +1,38 @@
 import processing.core.PImage;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.*;
 
-
-public class DudeEntity extends MovableEntity implements ExecutableEntity{
+public abstract class DudeEntity extends MovableEntity implements TransformableEntity, ExecutableEntity{
     private int resourceLimit;
-    private String facing;
 
     public DudeEntity(String id, Point position, List<PImage> images, int animationPeriod,int actionPeriod, int resourceLimit) {
-
         super(id, position, images,animationPeriod,actionPeriod);
         this.resourceLimit = resourceLimit;
-        facing = "right";
-    }
-
-    public void setFacing(String facing) {
-        this.facing = facing;
     }
 
     public int getResourceLimit() {return resourceLimit;}
 
     public Point nextPosition(WorldModel world, Point destPos) {
-            if (!world.isOccupied(destPos)) {
-                world.moveEntity(this, destPos);
-                return destPos;
+        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
+
+        if (horiz == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
+            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+            List<Point> newPointsList = AStarPathingStrategy.computePath(this.getPosition(), destPos,
+                    p ->  world.withinBounds(p) && !(world.getOccupancyCell(p) instanceof ObstacleEntity),
+                    (p1, p2) -> neighbors(p1,p2),
+                    PathingStrategy.CARDINAL_NEIGHBORS);
+
+
+            newPos = newPointsList.get(0);
+
+            if (vert == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
+                newPos = this.getPosition();
             }
-            return this.getPosition();
         }
 
+//        AStarPathingStrategy.computePath(this.getPosition(), destPos, )
 
-//        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-//        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-//
-//        if (horiz == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
-//            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-//            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
-//
-//            if (vert == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
-//                newPos = this.getPosition();
-//            }
-//        }
-//
-//        return newPos;
-
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore) {
-        scheduler.scheduleEvent(this,
-                new ActivityAction(this, world, imageStore),
-                getActionPeriod());
-        scheduler.scheduleEvent(this,
-                new AnimationAction(this,0),
-                getAnimationPeriod());
+        return newPos;
     }
-
-    public void executeActivity(
-            WorldModel world,
-            ImageStore imageStore,
-            EventScheduler scheduler) {
-        Optional<Entity> target =
-                world.findNearest(getPosition(), new ArrayList<>(Arrays.asList(TreeEntity.class, SaplingEntity.class)));
-
-        if (!target.isPresent()) {
-            scheduler.scheduleEvent(this,
-                    new ActivityAction(this, world, imageStore),
-                    getActionPeriod());
-        }
-    }
-
 }
