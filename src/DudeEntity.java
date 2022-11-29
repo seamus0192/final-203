@@ -10,6 +10,10 @@ public abstract class DudeEntity extends MovableEntity implements TransformableE
         this.resourceLimit = resourceLimit;
     }
 
+    public String getFacing() {
+        return facing;
+    }
+
     public int getResourceLimit() {return resourceLimit;}
 
     public Point nextPosition(WorldModel world, Point destPos) {

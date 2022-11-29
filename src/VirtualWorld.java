@@ -121,9 +121,10 @@ public final class VirtualWorld extends PApplet
             theDude.setFacing("right");
             theDude.nextPosition(this.world,p);
         }
-//        if (key == ' '){
-//            Entity ball = new ProjectileEntity("ball",theDude.getPosition()),
-//        }
+        if (key == ' '){
+            Entity ball = new ProjectileEntity("projectile",theDude.getPosition(),imageStore.getImageList("projectile"),300,300,theDude.getFacing());
+            world.addEntity(ball);
+        }
         if (key == CODED) {
             int dx = 0;
             int dy = 0;

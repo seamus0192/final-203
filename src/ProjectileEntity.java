@@ -13,7 +13,9 @@ public class ProjectileEntity extends MovableEntity{
     }
 
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-
+        scheduler.scheduleEvent(this,
+                new AnimationAction(this,0),
+                getAnimationPeriod());
     }
 
     @Override
