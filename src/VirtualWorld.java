@@ -10,12 +10,12 @@ public final class VirtualWorld extends PApplet
 {
     private static final int TIMER_ACTION_PERIOD = 100;
 
-    private static final int VIEW_WIDTH = 640;
-    private static final int VIEW_HEIGHT = 480;
-    private static final int TILE_WIDTH = 32;
-    private static final int TILE_HEIGHT = 32;
-    private static final int WORLD_WIDTH_SCALE = 2;
-    private static final int WORLD_HEIGHT_SCALE = 2;
+    private static final int VIEW_WIDTH = 1120;
+    private static final int VIEW_HEIGHT = 780;
+    private static final int TILE_WIDTH = 26;
+    private static final int TILE_HEIGHT = 26;
+    private static final int WORLD_WIDTH_SCALE = 1;
+    private static final int WORLD_HEIGHT_SCALE = 1;
 
     private static final int VIEW_COLS = VIEW_WIDTH / TILE_WIDTH;
     private static final int VIEW_ROWS = VIEW_HEIGHT / TILE_HEIGHT;
@@ -62,7 +62,7 @@ public final class VirtualWorld extends PApplet
         this.scheduler = new EventScheduler(timeScale);
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
-        theDude = new DudeEntity("dude",new Point(8,1),imageStore.getImageList("dude"),220,100,3);
+        theDude = new DudeEntity("dude",new Point(8,1),imageStore.getImageList("dude"),220,1000,3);
         this.world.addEntity(theDude);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
@@ -103,20 +103,27 @@ public final class VirtualWorld extends PApplet
     public void keyPressed() {
         if (key == 's'){
             Point p = new Point(theDude.getPosition().getX(), theDude.getPosition().getY()+1);
+            theDude.setFacing("down");
             theDude.nextPosition(this.world,p);
         }
         if (key == 'w'){
             Point p = new Point(theDude.getPosition().getX(), theDude.getPosition().getY()-1);
+            theDude.setFacing("up");
             theDude.nextPosition(this.world,p);
         }
         if (key == 'a'){
             Point p = new Point(theDude.getPosition().getX()-1, theDude.getPosition().getY());
+            theDude.setFacing("left");
             theDude.nextPosition(this.world,p);
         }
         if (key == 'd'){
             Point p = new Point(theDude.getPosition().getX()+1, theDude.getPosition().getY());
+            theDude.setFacing("right");
             theDude.nextPosition(this.world,p);
         }
+//        if (key == ' '){
+//            Entity ball = new ProjectileEntity("ball",theDude.getPosition()),
+//        }
         if (key == CODED) {
             int dx = 0;
             int dy = 0;

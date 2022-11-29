@@ -7,11 +7,17 @@ import java.util.*;
 
 public class DudeEntity extends MovableEntity implements ExecutableEntity{
     private int resourceLimit;
+    private String facing;
 
     public DudeEntity(String id, Point position, List<PImage> images, int animationPeriod,int actionPeriod, int resourceLimit) {
 
         super(id, position, images,animationPeriod,actionPeriod);
         this.resourceLimit = resourceLimit;
+        facing = "right";
+    }
+
+    public void setFacing(String facing) {
+        this.facing = facing;
     }
 
     public int getResourceLimit() {return resourceLimit;}

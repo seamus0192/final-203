@@ -44,7 +44,7 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
         Random rand = new Random();
 
         if (moveToFairy(world, fairyTarget, scheduler)) {
-            VirtualWorld.theDude.setPosition(new Point(rand.nextInt(15), rand.nextInt(15)));
+            VirtualWorld.theDude.setPosition(new Point(rand.nextInt(42), rand.nextInt(29)));
             world.addEntity(VirtualWorld.theDude);
         }
 

@@ -47,6 +47,7 @@ public final class ImageStore
         if (attrs.length >= 2) {
             String key = attrs[0];
             PImage img = screen.loadImage(attrs[1]);
+            img.resize(32,32);
             if (img != null && img.width != -1) {
                 List<PImage> imgs = getImages(images, key);
                 imgs.add(img);
