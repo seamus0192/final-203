@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class AStarPathingStrategy
-        implements PathingStrategy
+//        implements PathingStrategy
 {
 
-    public List<Point> computePath(Point start, Point end,
+    public static List<Point> computePath(Point start, Point end,
                                    Predicate<Point> canPassThrough,
                                    BiPredicate<Point, Point> withinReach,
                                    Function<Point, Stream<Point>> potentialNeighbors)
