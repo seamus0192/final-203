@@ -25,6 +25,7 @@ public final class VirtualWorld extends PApplet
     private static final String IMAGE_LIST_FILE_NAME = "imagelist";
     private static final String DEFAULT_IMAGE_NAME = "background_default";
     private static final int DEFAULT_IMAGE_COLOR = 0x808080;
+    public static DudeEntity theDude;
 
     private static String LOAD_FILE_NAME = "world.sav";
 
@@ -41,7 +42,6 @@ public final class VirtualWorld extends PApplet
     private WorldModel world;
     private WorldView view;
     private EventScheduler scheduler;
-
     public long nextTime;
 
     public void settings() {
@@ -62,6 +62,8 @@ public final class VirtualWorld extends PApplet
         this.scheduler = new EventScheduler(timeScale);
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
+        theDude = new DudeEntity("dude",new Point(8,1),imageStore.getImageList("dude"),220,100,3);
+        this.world.addEntity(theDude);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);
@@ -81,24 +83,40 @@ public final class VirtualWorld extends PApplet
 
     // Just for debugging and for P5
     // Be sure to refactor this method as appropriate
-    public void mousePressed() {
-        Point pressed = mouseToPoint(mouseX, mouseY);
-        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
-
-        Optional<Entity> entityOptional = world.getOccupant( pressed);
-        if (entityOptional.isPresent())
-        {
-            Entity entity = entityOptional.get();
-            //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
-        }
-
-    }
+//    public void mousePressed() {
+//        Point pressed = mouseToPoint(mouseX, mouseY);
+//        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
+//
+//        Optional<Entity> entityOptional = world.getOccupant( pressed);
+//        if (entityOptional.isPresent())
+//        {
+//            Entity entity = entityOptional.get();
+//            //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
+//        }
+//
+//    }
 
     private Point mouseToPoint(int x, int y)
     {
         return view.getViewport().viewportToWorld( mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
     }
     public void keyPressed() {
+        if (key == 's'){
+            Point p = new Point(theDude.getPosition().getX(), theDude.getPosition().getY()+1);
+            theDude.nextPosition(this.world,p);
+        }
+        if (key == 'w'){
+            Point p = new Point(theDude.getPosition().getX(), theDude.getPosition().getY()-1);
+            theDude.nextPosition(this.world,p);
+        }
+        if (key == 'a'){
+            Point p = new Point(theDude.getPosition().getX()-1, theDude.getPosition().getY());
+            theDude.nextPosition(this.world,p);
+        }
+        if (key == 'd'){
+            Point p = new Point(theDude.getPosition().getX()+1, theDude.getPosition().getY());
+            theDude.nextPosition(this.world,p);
+        }
         if (key == CODED) {
             int dx = 0;
             int dy = 0;

@@ -2,6 +2,7 @@ import processing.core.PImage;
 
 import java.util.*;
 
+
 public class FairyEntity extends MovableEntity implements ExecutableEntity{
 
 
@@ -39,20 +40,18 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
             WorldModel world,
             ImageStore imageStore,
             EventScheduler scheduler) {
-        Optional<Entity> fairyTarget =
-                world.findNearest(getPosition(), new ArrayList<>(List.of(StumpEntity.class)));
+        Entity fairyTarget = VirtualWorld.theDude;
+        Random rand = new Random();
 
-        if (fairyTarget.isPresent()) {
-            Point tgtPos = fairyTarget.get().getPosition();
-
-            if (moveToFairy(world, fairyTarget.get(), scheduler)) {
-                SaplingEntity sapling = new SaplingEntity("sapling_" + getId(), tgtPos,
-                        imageStore.getImageList(SAPLING_KEY),0);
-
-                world.addEntity( sapling);
-                sapling.scheduleActions(scheduler, world, imageStore);
-            }
+        if (moveToFairy(world, fairyTarget, scheduler)) {
+            VirtualWorld.theDude.setPosition(new Point(rand.nextInt(15), rand.nextInt(15)));
+            world.addEntity(VirtualWorld.theDude);
         }
+
+
+//        if (fairyTarget.isPresent() && moveToFairy(world, fairyTarget.get(), scheduler)) {
+//            world.removeEntity(VirtualWorld.theDude);
+//        }
 
         scheduler.scheduleEvent(this,
                 new ActivityAction(this, world, imageStore),

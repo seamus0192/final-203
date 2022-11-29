@@ -37,15 +37,6 @@ public final class WorldModel
     private static final int OBSTACLE_ROW = 3;
     private static final int OBSTACLE_ANIMATION_PERIOD = 4;
 
-    private static final String DUDE_KEY = "dude";
-    private static final int DUDE_NUM_PROPERTIES = 7;
-    private static final int DUDE_ID = 1;
-    private static final int DUDE_COL = 2;
-    private static final int DUDE_ROW = 3;
-    private static final int DUDE_LIMIT = 4;
-    private static final int DUDE_ACTION_PERIOD = 5;
-    private static final int DUDE_ANIMATION_PERIOD = 6;
-
     private static final String HOUSE_KEY = "house";
     private static final int HOUSE_NUM_PROPERTIES = 4;
     private static final int HOUSE_ID = 1;
@@ -58,7 +49,7 @@ public final class WorldModel
     private static final int FAIRY_COL = 2;
     private static final int FAIRY_ROW = 3;
     private static final int FAIRY_ANIMATION_PERIOD = 4;
-    private static final int FAIRY_ACTION_PERIOD = 5;
+    private static final int FAIRY_ACTION_PERIOD = 2;
 
     private static final String TREE_KEY = "tree";
     private static final int TREE_NUM_PROPERTIES = 7;
@@ -154,22 +145,22 @@ public final class WorldModel
         return properties.length == SAPLING_NUM_PROPERTIES;
     }
 
-    public boolean parseDude(
-            String[] properties, ImageStore imageStore)
-    {
-        if (properties.length == DUDE_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[DUDE_COL]),
-                    Integer.parseInt(properties[DUDE_ROW]));
-            DudeNotFullEntity entity = new DudeNotFullEntity(properties[DUDE_ID],
-                    pt, imageStore.getImageList( DUDE_KEY),
-                    Integer.parseInt(properties[DUDE_ACTION_PERIOD]),
-                    Integer.parseInt(properties[DUDE_ANIMATION_PERIOD]),
-                    Integer.parseInt(properties[DUDE_LIMIT]));
-            tryAddEntity(entity);
-        }
-
-        return properties.length == DUDE_NUM_PROPERTIES;
-    }
+//    public boolean parseDude(
+//            String[] properties, ImageStore imageStore)
+//    {
+//        if (properties.length == DUDE_NUM_PROPERTIES) {
+//            Point pt = new Point(Integer.parseInt(properties[DUDE_COL]),
+//                    Integer.parseInt(properties[DUDE_ROW]));
+//            DudeNotFullEntity entity = new DudeNotFullEntity(properties[DUDE_ID],
+//                    pt, imageStore.getImageList( DUDE_KEY),
+//                    Integer.parseInt(properties[DUDE_ACTION_PERIOD]),
+//                    Integer.parseInt(properties[DUDE_ANIMATION_PERIOD]),
+//                    Integer.parseInt(properties[DUDE_LIMIT]));
+//            tryAddEntity(entity);
+//        }
+//
+//        return properties.length == DUDE_NUM_PROPERTIES;
+//    }
 
     public boolean parseFairy(
             String[] properties, ImageStore imageStore)
@@ -260,8 +251,6 @@ public final class WorldModel
             switch (properties[PROPERTY_KEY]) {
                 case BGND_KEY:
                     return this.parseBackground(properties, imageStore);
-                case DUDE_KEY:
-                    return this.parseDude(properties, imageStore);
                 case OBSTACLE_KEY:
                     return this.parseObstacle(properties, imageStore);
                 case FAIRY_KEY:

@@ -1237,7 +1237,6 @@ obstacle obstacle_11_7 11 7 1197
 obstacle obstacle_5_9 5 9 1154
 obstacle obstacle_20_12 20 12 1135
 obstacle obstacle_34_21 34 21 1107
-dude dude_22_26 22 26 4 787 100
 obstacle obstacle_29_20 29 20 1001
 tree tree_7_0 7 0 522 1352 1
 tree tree_3_0 3 0 185 1387 1
@@ -1268,7 +1267,6 @@ tree tree_31_7 31 7 391 1024 2
 obstacle obstacle_24_17 24 17 1083
 obstacle obstacle_25_19 25 19 1072
 obstacle obstacle_21_13 21 13 1006
-dude dude_35_26 35 26 4 784 100
 tree tree_19_1 19 1 300 1154 1
 tree tree_8_1 8 1 106 1269 1
 obstacle obstacle_18_12 18 12 1190
@@ -1328,7 +1326,6 @@ tree tree_37_25 37 25 186 1219 2
 obstacle obstacle_22_17 22 17 1052
 tree tree_23_4 23 4 419 1128 2
 obstacle obstacle_1_8 1 8 1041
-dude dude_4_3 4 3 3 848 100
 obstacle obstacle_19_11 19 11 1071
 tree tree_17_3 17 3 61 1050 1
 obstacle obstacle_1_9 1 9 1112
@@ -1346,7 +1343,6 @@ tree tree_17_4 17 4 111 1206 1
 obstacle obstacle_20_14 20 14 1140
 tree tree_24_4 24 4 182 1027 2
 tree tree_36_27 36 27 150 1230 2
-dude dude_6_21 6 21 4 720 100
 tree tree_26_9 26 9 594 1345 1
 obstacle obstacle_8_7 8 7 1101
 tree tree_11_14 11 14 173 1274 1
