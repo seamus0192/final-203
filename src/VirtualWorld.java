@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.Optional;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import processing.core.*;
 
@@ -45,6 +46,8 @@ public final class VirtualWorld extends PApplet
     private EventScheduler scheduler;
     public long nextTime;
 
+    private TimerTask task;
+
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
     }
@@ -53,6 +56,7 @@ public final class VirtualWorld extends PApplet
        Processing entry point for "sketch" setup.
     */
     public void setup() {
+
         this.imageStore = new ImageStore(
                 createImageColored(TILE_WIDTH, TILE_HEIGHT,
                                    DEFAULT_IMAGE_COLOR));
@@ -62,11 +66,19 @@ public final class VirtualWorld extends PApplet
                                   TILE_HEIGHT);
         this.scheduler = new EventScheduler(timeScale);
 
+        task = new TimerTask() {
+            public void run() {
+                FairyEntity f = new FairyEntity("fairy",new Point(1,1),imageStore.getImageList("fairy"),1,1);
+                world.addEntity(f);
+                f.scheduleActions( scheduler, world,imageStore);
+            }
+        };
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(task, 1000,5000);
+
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
         theDude = new DudeEntity("dude",new Point(20,15),imageStore.getImageList("dude"),220,1000,3);
         this.world.addEntity(theDude);
-        FairyEntity f = new FairyEntity("fairy",new Point(1,1),imageStore.getImageList("fairy"),1,1);
-        this.world.addEntity(f);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);
@@ -76,12 +88,10 @@ public final class VirtualWorld extends PApplet
 
     public void draw() {
         long time = System.currentTimeMillis();
-        Timer t = new Timer();
         if (time >= nextTime) {
             this.scheduler.updateOnTime(time);
             nextTime = time + TIMER_ACTION_PERIOD;
         }
-        System.out.println(t);
 
         view.drawViewport();
         text("Lasagna",3,3);
@@ -143,9 +153,9 @@ public final class VirtualWorld extends PApplet
                     p = new Point(theDude.getPosition().x, theDude.getPosition().y+1);
                 }
             }
-            Entity ball = new ProjectileEntity("projectile",p,imageStore.getImageList("projectile"),1,10,theDude.getFacing());
+            ProjectileEntity ball = new ProjectileEntity("projectile",p,imageStore.getImageList("projectile"),1,10,theDude.getFacing());
             this.world.addEntity(ball);
-            scheduleActions(world,scheduler,imageStore);
+            ball.scheduleActions(scheduler, world,imageStore);
 
         }
         if (key == CODED) {
