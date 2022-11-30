@@ -134,7 +134,7 @@ public final class VirtualWorld extends PApplet
                     p = new Point(theDude.getPosition().x, theDude.getPosition().y-1);
                 }
                 case ("down") -> {
-                    p = new Point(theDude.getPosition().x-1, theDude.getPosition().y+1);
+                    p = new Point(theDude.getPosition().x, theDude.getPosition().y+1);
                 }
             }
             Entity ball = new ProjectileEntity("projectile",p,imageStore.getImageList("projectile"),300,1,theDude.getFacing());
