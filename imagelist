@@ -1,10 +1,10 @@
-house images/house.bmp 255 255 255 0
+house images/oven.png 255 255 255 0
 obstacle images/water0.png
 obstacle images/water1.png
 obstacle images/water2.png
 obstacle images/water1.png
 obstacle images/water0.png
-grass images/grass.png
+grass images/floor.jpeg
 flowers images/flowers.png
 background_default images/none.bmp
 dirt images/dirt.bmp
@@ -21,26 +21,14 @@ tree images/tree2.png
 tree images/tree3.png
 tree images/tree4.png
 stump images/stump.png
-dude images/frames/weed0.jpeg
-dude images/frames/weed1.jpeg
-dude images/frames/weed2.jpeg
-dude images/frames/weed3.jpeg
-dude images/frames/weed4.jpeg
-dude images/frames/weed5.jpeg
-dude images/frames/weed6.jpeg
-dude images/frames/weed7.jpeg
-dude images/frames/weed8.jpeg
-dude images/frames/weed9.jpeg
-dude images/frames/weed10.jpeg
-dude images/frames/weed11.jpeg
-dude images/frames/weed12.jpeg
-dude images/frames/weed13.jpeg
-dude images/frames/weed14.jpeg
-dude images/frames/weed15.jpeg
+dude images/lasagna-1.png
+dude images/lasagna-2.png
+dude images/lasagna-3.png
+dude images/lasagna-4.png
 fairy images/garfield.png
 sapling images/sapling0.png
 sapling images/sapling1.png
 sapling images/sapling2.png
 sapling images/sapling3.png
 sapling images/sapling4.png
-projectile images/canna.jpeg
+projectile images/cannonball.png
