@@ -138,7 +138,9 @@ public final class VirtualWorld extends PApplet
                 }
             }
             Entity ball = new ProjectileEntity("projectile",p,imageStore.getImageList("projectile"),300,300,theDude.getFacing());
-            world.addEntity(ball);
+            this.world.addEntity(ball);
+            scheduleActions(world,scheduler,imageStore);
+
         }
         if (key == CODED) {
             int dx = 0;
