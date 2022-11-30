@@ -343,14 +343,16 @@ public final class WorldModel
         }
     }
 
-    public  void moveEntity( Entity entity, Point pos) {
+    public boolean moveEntity( Entity entity, Point pos) {
         Point oldPos = entity.getPosition();
         if (withinBounds(pos) && !pos.equals(oldPos)) {
             setOccupancyCell(oldPos, null);
             removeEntityAt( pos);
             setOccupancyCell(pos, entity);
             entity.setPosition(pos);
+            return true;
         }
+        return false;
     }
 
     public  void removeEntity( Entity entity) {

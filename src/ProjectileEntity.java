@@ -18,7 +18,6 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
     public Point nextPosition(WorldModel world, Point point) {
         switch (dir) {
             case ("right") -> {
-                System.out.println("right)");
                 return new Point(point.x + 1, point.y);
             }
             case ("left") -> {
@@ -31,7 +30,7 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
                 return new Point(point.x, point.y + 1);
             }
         }
-        return new Point(point.x+1, point.y);
+        return new Point(point.x, point.y);
     }
 
     public void moveToProjectile(
@@ -43,7 +42,9 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
-                world.moveEntity( this, nextPos);
+                if (!world.moveEntity( this, nextPos)){
+                    world.removeEntity(this);
+                }
         }
 
 
