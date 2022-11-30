@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.Optional;
+import java.util.Timer;
 
 import processing.core.*;
 
@@ -62,8 +63,10 @@ public final class VirtualWorld extends PApplet
         this.scheduler = new EventScheduler(timeScale);
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
-        theDude = new DudeEntity("dude",new Point(8,1),imageStore.getImageList("dude"),220,1000,3);
+        theDude = new DudeEntity("dude",new Point(20,15),imageStore.getImageList("dude"),220,1000,3);
         this.world.addEntity(theDude);
+        FairyEntity f = new FairyEntity("fairy",new Point(1,1),imageStore.getImageList("fairy"),1,1);
+        this.world.addEntity(f);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);
@@ -73,12 +76,15 @@ public final class VirtualWorld extends PApplet
 
     public void draw() {
         long time = System.currentTimeMillis();
+        Timer t = new Timer();
         if (time >= nextTime) {
             this.scheduler.updateOnTime(time);
             nextTime = time + TIMER_ACTION_PERIOD;
         }
+        System.out.println(t);
 
         view.drawViewport();
+        text("Lasagna",3,3);
     }
 
     // Just for debugging and for P5
@@ -137,7 +143,7 @@ public final class VirtualWorld extends PApplet
                     p = new Point(theDude.getPosition().x, theDude.getPosition().y+1);
                 }
             }
-            Entity ball = new ProjectileEntity("projectile",p,imageStore.getImageList("projectile"),300,1,theDude.getFacing());
+            Entity ball = new ProjectileEntity("projectile",p,imageStore.getImageList("projectile"),1,10,theDude.getFacing());
             this.world.addEntity(ball);
             scheduleActions(world,scheduler,imageStore);
 

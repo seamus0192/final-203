@@ -90,7 +90,7 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
             List<Point> newPointsList = AStarPathingStrategy.computePath(this.getPosition(), destPos,
                     p ->  world.withinBounds(p) && !(world.getOccupancyCell(p) instanceof ObstacleEntity),
                     (p1, p2) -> neighbors(p1,p2),
-                    PathingStrategy.CARDINAL_NEIGHBORS);
+                    PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
 
             if(newPointsList.size() != 0)
                 newPos = newPointsList.get(0);

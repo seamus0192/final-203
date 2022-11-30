@@ -38,10 +38,7 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
             Point target,
             EventScheduler scheduler) {
                 Point nextPos = nextPosition(world, target);
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
+                world.removeEntityAt(nextPos);
                 if (!world.moveEntity( this, nextPos)){
                     world.removeEntity(this);
                 }
@@ -66,8 +63,8 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
         scheduler.scheduleEvent(this,
                 new ActivityAction(this, world, imageStore),
                 getActionPeriod());
-        scheduler.scheduleEvent(this,
-                new AnimationAction(this,0),
-                getAnimationPeriod());
+//        scheduler.scheduleEvent(this,
+//                new AnimationAction(this,0),
+//                getAnimationPeriod());
     }
 }
