@@ -170,7 +170,7 @@ public final class WorldModel
                     Integer.parseInt(properties[FAIRY_ROW]));
             FairyEntity entity = new FairyEntity(properties[FAIRY_ID],
                     pt,imageStore.getImageList(FAIRY_KEY),
-                    Integer.parseInt(properties[FAIRY_ACTION_PERIOD]),
+                    250,
                     Integer.parseInt(properties[FAIRY_ANIMATION_PERIOD]));
             tryAddEntity(entity);
         }

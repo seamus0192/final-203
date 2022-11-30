@@ -4,7 +4,7 @@ import java.util.*;
 
 
 public class FairyEntity extends MovableEntity implements ExecutableEntity{
-
+    private static int pathTimes = 0;
 
     private static final String SAPLING_KEY = "sapling";
 
@@ -39,12 +39,23 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
     public void executeActivity(
             WorldModel world,
             ImageStore imageStore,
-            EventScheduler scheduler) {
+            EventScheduler scheduler){
         Entity fairyTarget = VirtualWorld.theDude;
         Random rand = new Random();
 
         if (moveToFairy(world, fairyTarget, scheduler)) {
-            VirtualWorld.theDude.setPosition(new Point(rand.nextInt(42), rand.nextInt(29)));
+            Point newRandomPoint = new Point(rand.nextInt(42), rand.nextInt(29));
+            while(world.isOccupied(newRandomPoint)) {
+//                if(!world.isOccupied(newRandomPoint))
+//                {
+//                    VirtualWorld.theDude.setPosition(newRandomPoint);
+//                    break;
+//                }
+                newRandomPoint = new Point(rand.nextInt(42), rand.nextInt(29));
+            }
+                VirtualWorld.theDude.setPosition(newRandomPoint);
+
+
             world.addEntity(VirtualWorld.theDude);
         }
 
@@ -59,14 +70,32 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
     }
 
     public Point nextPosition(WorldModel world, Point destPos) {
+//        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+//        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
+//
+//        if (horiz == 0 || world.isOccupied(newPos)) {
+//            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+//            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
+//
+//            if (vert == 0 || world.isOccupied(newPos)) {
+//                newPos = this.getPosition();
+//            }
+//        }
+
         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
         Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
-        if (horiz == 0 || world.isOccupied(newPos)) {
+        if (horiz == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
             int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
+            List<Point> newPointsList = AStarPathingStrategy.computePath(this.getPosition(), destPos,
+                    p ->  world.withinBounds(p) && !(world.getOccupancyCell(p) instanceof ObstacleEntity),
+                    (p1, p2) -> neighbors(p1,p2),
+                    PathingStrategy.CARDINAL_NEIGHBORS);
 
-            if (vert == 0 || world.isOccupied(newPos)) {
+            if(newPointsList.size() != 0)
+                newPos = newPointsList.get(0);
+
+            if (vert == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
                 newPos = this.getPosition();
             }
         }

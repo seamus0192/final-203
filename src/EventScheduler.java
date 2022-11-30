@@ -63,5 +63,4 @@ public final class EventScheduler
             next.getAction().executeAction(this);
         }
     }
-
 }

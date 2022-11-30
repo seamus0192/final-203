@@ -16,8 +16,10 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
 
 
     public Point nextPosition(WorldModel world, Point point) {
+        System.out.println("good");
         switch (dir) {
             case ("right") -> {
+                System.out.println("right)");
                 return new Point(point.x + 1, point.y);
             }
             case ("left") -> {
@@ -33,17 +35,18 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
         return new Point(point.x+1, point.y);
     }
 
-    public void moveToFairy(
+    public void moveToProjectile(
             WorldModel world,
-            Entity target,
+            Point target,
             EventScheduler scheduler) {
-                Point nextPos = nextPosition(world, target.getPosition());
-
+                Point nextPos = nextPosition(world, target);
+                System.out.println("even better");
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
+                System.out.println("moving");
                 world.moveEntity( this, nextPos);
         }
 
@@ -52,7 +55,7 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
             WorldModel world,
             ImageStore imageStore,
             EventScheduler scheduler) {
-        moveToFairy(world, VirtualWorld.theDude, scheduler);
+        moveToProjectile(world, nextPosition(world, this.getPosition()), scheduler);
 
 //        if (fairyTarget.isPresent() && moveToFairy(world, fairyTarget.get(), scheduler)) {
 //            world.removeEntity(VirtualWorld.theDude);
