@@ -76,14 +76,14 @@ public final class VirtualWorld extends PApplet
         task = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),150,1);
+                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),180,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
         };
         task2 = new TimerTask() {
             public void run() {
-                GarfieldEntity f = new GarfieldEntity("sillygarfield",findNewRandomPoint(),imageStore.getImageList("fairy"),400,1);
+                GarfieldEntity f = new GarfieldEntity("sillygarfield",findNewRandomPoint(),imageStore.getImageList("fairy"),360,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
