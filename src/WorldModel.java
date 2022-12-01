@@ -130,37 +130,6 @@ public final class WorldModel
         }
     }
 
-    public boolean parseSapling(
-            String[] properties, ImageStore imageStore)
-    {
-        if (properties.length == SAPLING_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[SAPLING_COL]),
-                    Integer.parseInt(properties[SAPLING_ROW]));
-            String id = properties[SAPLING_ID];
-            int health = Integer.parseInt(properties[SAPLING_HEALTH]);
-            SaplingEntity entity = new SaplingEntity( id, pt, imageStore.getImageList(SAPLING_KEY),health);
-            tryAddEntity(entity);
-        }
-
-        return properties.length == SAPLING_NUM_PROPERTIES;
-    }
-
-//    public boolean parseDude(
-//            String[] properties, ImageStore imageStore)
-//    {
-//        if (properties.length == DUDE_NUM_PROPERTIES) {
-//            Point pt = new Point(Integer.parseInt(properties[DUDE_COL]),
-//                    Integer.parseInt(properties[DUDE_ROW]));
-//            DudeNotFullEntity entity = new DudeNotFullEntity(properties[DUDE_ID],
-//                    pt, imageStore.getImageList( DUDE_KEY),
-//                    Integer.parseInt(properties[DUDE_ACTION_PERIOD]),
-//                    Integer.parseInt(properties[DUDE_ANIMATION_PERIOD]),
-//                    Integer.parseInt(properties[DUDE_LIMIT]));
-//            tryAddEntity(entity);
-//        }
-//
-//        return properties.length == DUDE_NUM_PROPERTIES;
-//    }
 
     public boolean parseFairy(
             String[] properties, ImageStore imageStore)
@@ -259,8 +228,6 @@ public final class WorldModel
                     return this.parseHouse(properties, imageStore);
                 case TREE_KEY:
                     return this.parseTree(properties, imageStore);
-                case SAPLING_KEY:
-                    return this.parseSapling(properties, imageStore);
             }
         }
 

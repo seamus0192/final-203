@@ -33,11 +33,12 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
         return this.facing;
     }
 
-    public int getResourceLimit() {
-        return this.resourceLimit;
-    }
 
     public Point nextPosition(WorldModel world, Point destPos) {
+        if (world.getOccupant(destPos).isPresent() && world.getOccupant(destPos).get() instanceof StumpEntity){
+            addHealth();
+            world.removeEntityAt(destPos);
+        }
         if (!world.isOccupied(destPos)) {
             world.moveEntity(this, destPos);
             return destPos;
@@ -52,7 +53,7 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> target = world.findNearest(this.getPosition(), new ArrayList(Arrays.asList(TreeEntity.class, SaplingEntity.class)));
+        Optional<Entity> target = world.findNearest(this.getPosition(), new ArrayList(Arrays.asList(TreeEntity.class)));
         if (!target.isPresent()) {
             scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), (long)this.getActionPeriod());
         }

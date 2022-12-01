@@ -44,6 +44,7 @@ public final class VirtualWorld extends PApplet
 
     private TimerTask task;
     private TimerTask task2;
+    private TimerTask task3;
 
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
@@ -66,7 +67,7 @@ public final class VirtualWorld extends PApplet
         task = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),100,1);
+                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),200,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
@@ -79,9 +80,20 @@ public final class VirtualWorld extends PApplet
                 f.scheduleActions( scheduler, world,imageStore);
             }
         };
+        task3 = new TimerTask() {
+            public void run() {
+                Random rand = new Random();
+                StumpEntity f = new StumpEntity("cheesy",new Point(rand.nextInt(41),rand.nextInt(29)),imageStore.getImageList("stump"));
+                world.addEntity(f);
+            }
+        };
+        //multiple to fix concurrent modification errors
         Timer t = new Timer();
+        Timer t1 = new Timer();
+        Timer t2 = new Timer();
         t.scheduleAtFixedRate(task, 10000,20000);
-        t.scheduleAtFixedRate(task2, 2000,5000);
+        t1.scheduleAtFixedRate(task2, 2000,5000);
+        t2.scheduleAtFixedRate(task3, 2000,10000);
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
