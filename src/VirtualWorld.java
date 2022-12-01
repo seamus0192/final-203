@@ -48,6 +48,10 @@ public final class VirtualWorld extends PApplet
 
     public static MicrowaveEntity Microwave;
 
+    public static int bombCount;
+
+    public static BombEntity bomb;
+
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
     }
@@ -107,6 +111,10 @@ public final class VirtualWorld extends PApplet
 
         Microwave = new MicrowaveEntity("microwave", findNewRandomPoint(), imageStore.getImageList("microwave"), 15, 15);
         this.world.addEntity(Microwave);
+
+        bomb = new BombEntity("bomb", findNewRandomPoint(), imageStore.getImageList("bomb"), 0, 0);
+        this.world.addEntity(bomb);
+
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);
@@ -145,18 +153,20 @@ public final class VirtualWorld extends PApplet
 
     // Just for debugging and for P5
     // Be sure to refactor this method as appropriate
-//    public void mousePressed() {
-//        Point pressed = mouseToPoint(mouseX, mouseY);
+    public void mousePressed() {
+        Point pressed = mouseToPoint(mouseX, mouseY);
 //        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
-//
-//        Optional<Entity> entityOptional = world.getOccupant( pressed);
-//        if (entityOptional.isPresent())
-//        {
-//            Entity entity = entityOptional.get();
-//            //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
-//        }
-//
-//    }
+
+//        Optional<Entity> entityOptional = world.getOccupant(pressed);
+        if (bombCount >= 1 && world.getOccupant(pressed).isPresent() && world.getOccupancyCell(pressed) instanceof GarfieldEntity)
+        {
+            scheduler.unscheduleAllEvents(world.getOccupancyCell(pressed));
+            world.removeEntity(world.getOccupancyCell(pressed));
+            bombCount -= 1;
+            //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
+        }
+
+    }
 
     private Point mouseToPoint(int x, int y)
     {
