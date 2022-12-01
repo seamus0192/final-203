@@ -92,8 +92,8 @@ public final class VirtualWorld extends PApplet
         Timer t1 = new Timer();
         Timer t2 = new Timer();
         t.scheduleAtFixedRate(task, 10000,20000);
-        t1.scheduleAtFixedRate(task2, 2000,5000);
-        t2.scheduleAtFixedRate(task3, 2000,10000);
+        t1.scheduleAtFixedRate(task2, 2000,5001);
+        t2.scheduleAtFixedRate(task3, 2000,10003);
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
@@ -126,6 +126,8 @@ public final class VirtualWorld extends PApplet
         text("Health:" + LasagnaEntity.health,10,60);
         text("Points:" + LasagnaEntity.cooks, 1010,25);
         if (LasagnaEntity.health == 0){
+            textSize(60);
+            text("GAME OVER", 300,500);
             stop();
         }
     }
