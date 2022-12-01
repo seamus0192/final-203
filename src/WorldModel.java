@@ -147,22 +147,7 @@ public final class WorldModel
         return properties.length == FAIRY_NUM_PROPERTIES;
     }
 
-    public boolean parseTree(
-            String[] properties, ImageStore imageStore)
-    {
-        if (properties.length == TREE_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[TREE_COL]),
-                    Integer.parseInt(properties[TREE_ROW]));
-            TreeEntity entity = new TreeEntity( properties[TREE_ID],
-                    pt, imageStore.getImageList( TREE_KEY),
-                    Integer.parseInt(properties[TREE_HEALTH]),
-                    Integer.parseInt(properties[TREE_ACTION_PERIOD]),
-                    Integer.parseInt(properties[TREE_ANIMATION_PERIOD]));
-            tryAddEntity(entity);
-        }
 
-        return properties.length == TREE_NUM_PROPERTIES;
-    }
 
     public boolean parseObstacle(
             String[] properties, ImageStore imageStore)
@@ -177,20 +162,6 @@ public final class WorldModel
         }
 
         return properties.length == OBSTACLE_NUM_PROPERTIES;
-    }
-
-    public boolean parseHouse(
-            String[] properties, ImageStore imageStore)
-    {
-        if (properties.length == HOUSE_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[HOUSE_COL]),
-                    Integer.parseInt(properties[HOUSE_ROW]));
-            MicrowaveEntity entity = new MicrowaveEntity(properties[HOUSE_ID], pt,
-                    imageStore.getImageList(HOUSE_KEY));
-            tryAddEntity(entity);
-        }
-
-        return properties.length == HOUSE_NUM_PROPERTIES;
     }
 
     public void tryAddEntity(Entity entity) {
@@ -224,10 +195,6 @@ public final class WorldModel
                     return this.parseObstacle(properties, imageStore);
                 case FAIRY_KEY:
                     return this.parseFairy(properties, imageStore);
-                case HOUSE_KEY:
-                    return this.parseHouse(properties, imageStore);
-                case TREE_KEY:
-                    return this.parseTree(properties, imageStore);
             }
         }
 

@@ -83,7 +83,7 @@ public final class VirtualWorld extends PApplet
         task3 = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                StumpEntity f = new StumpEntity("cheesy",new Point(rand.nextInt(41),rand.nextInt(29)),imageStore.getImageList("stump"));
+                CheeseEntity f = new CheeseEntity("cheesy",new Point(rand.nextInt(41),rand.nextInt(29)),imageStore.getImageList("stump"));
                 world.addEntity(f);
             }
         };
@@ -104,7 +104,7 @@ public final class VirtualWorld extends PApplet
         this.world.addEntity(conf);
 
         Random rand2 = new Random();
-        TreeEntity micro = new TreeEntity("microwave", new Point(rand2.nextInt(41),rand2.nextInt(25)), imageStore.getImageList("microwave"), 50, 15, 15);
+        MicrowaveEntity micro = new MicrowaveEntity("microwave", new Point(rand2.nextInt(41),rand2.nextInt(25)), imageStore.getImageList("microwave"),  15, 15);
         this.world.addEntity(micro);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 

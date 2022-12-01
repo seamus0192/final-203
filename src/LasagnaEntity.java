@@ -35,7 +35,7 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
 
 
     public Point nextPosition(WorldModel world, Point destPos) {
-        if (world.getOccupant(destPos).isPresent() && world.getOccupant(destPos).get() instanceof StumpEntity){
+        if (world.getOccupant(destPos).isPresent() && world.getOccupant(destPos).get() instanceof CheeseEntity){
             addHealth();
             world.removeEntityAt(destPos);
         }
@@ -53,7 +53,7 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> target = world.findNearest(this.getPosition(), new ArrayList(Arrays.asList(TreeEntity.class)));
+        Optional<Entity> target = world.findNearest(this.getPosition(), new ArrayList(Arrays.asList(MicrowaveEntity.class)));
         if (!target.isPresent()) {
             scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), (long)this.getActionPeriod());
         }

@@ -44,8 +44,8 @@ public class AngryEntity extends MovableEntity implements ExecutableEntity{
             ImageStore imageStore,
             EventScheduler scheduler){
         List<Class> l = new ArrayList<>();
-        l.add(TreeEntity.class);
-        LasagnaEntity fairyTarget = VirtualWorld.theDude;
+        l.add(MicrowaveEntity.class);
+        LasagnaEntity fairyTarget = VirtualWorld.lasagna;
         moveToAngry(world, fairyTarget, scheduler);
 
 
