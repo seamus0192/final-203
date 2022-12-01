@@ -146,10 +146,9 @@ public final class VirtualWorld extends PApplet
 
             view.drawViewport();
             textSize(20);
-//            text("Kills:" + ProjectileEntity.kills, 10, 25);
-            text("Health:" + LasagnaEntity.health, 10, 50);
+            text("Health:" + LasagnaEntity.health, 10, 25);
+            text("Bombs:" + bombCount, 10, 50);
             text("Points:" + LasagnaEntity.cooks, 1010, 25);
-            text("Bombs:" + bombCount, 10, 75);
             if (LasagnaEntity.health == 0) {
                 textSize(120);
                 fill(255,0,0);
@@ -230,11 +229,11 @@ public final class VirtualWorld extends PApplet
                     p = new Point(lasagna.getPosition().x, lasagna.getPosition().y+1);
                 }
             }
-            if (world.getOccupant(p).isEmpty()) {
-                ProjectileEntity ball = new ProjectileEntity("projectile", p, imageStore.getImageList("projectile"), 1, 10, lasagna.getFacing());
-                this.world.addEntity(ball);
-                ball.scheduleActions(scheduler, world, imageStore);
-            }
+//            if (world.getOccupant(p).isEmpty()) {
+//                ProjectileEntity ball = new ProjectileEntity("projectile", p, imageStore.getImageList("projectile"), 1, 10, lasagna.getFacing());
+//                this.world.addEntity(ball);
+//                ball.scheduleActions(scheduler, world, imageStore);
+//            }
 
         }
         if (key == CODED) {
