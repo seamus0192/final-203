@@ -41,6 +41,11 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
             world.removeEntityAt(destPos);
         }
 
+        if (world.getOccupant(destPos).isPresent() && world.getOccupant(destPos).get() instanceof SauceEntity){
+            addBigHealth();
+            world.removeEntityAt(destPos);
+        }
+
         if (world.getOccupant(destPos).isPresent() && world.getOccupant(destPos).get() instanceof MicrowaveEntity){
             addPoints();
             world.removeEntityAt(destPos);

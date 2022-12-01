@@ -45,6 +45,7 @@ public final class VirtualWorld extends PApplet
     private TimerTask task;
     private TimerTask task2;
     private TimerTask task3;
+    private TimerTask task4;
 
     public static MicrowaveEntity Microwave;
 
@@ -92,13 +93,21 @@ public final class VirtualWorld extends PApplet
                 world.addEntity(f);
             }
         };
+        task4 = new TimerTask() {
+            public void run() {
+                SauceEntity f = new SauceEntity("saucy", findNewRandomPoint(),imageStore.getImageList("sauce"));
+                world.addEntity(f);
+            }
+        };
         //multiple to fix concurrent modification errors
         Timer t = new Timer();
         Timer t1 = new Timer();
         Timer t2 = new Timer();
+        Timer t3 = new Timer();
         t.scheduleAtFixedRate(task, 10000,20000);
         t1.scheduleAtFixedRate(task2, 2000,5001);
         t2.scheduleAtFixedRate(task3, 2000,10003);
+        t3.scheduleAtFixedRate(task4,10001,60000);
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
@@ -150,7 +159,7 @@ public final class VirtualWorld extends PApplet
                 fill(255,0,0);
                 text("GAME OVER", 260, 440);
                 textSize(60);
-                text("YOUR FINAL SCORE WAS: " + ProjectileEntity.kills,170,530);
+                text("YOUR FINAL SCORE WAS: " + LasagnaEntity.cooks,170,530);
                 stop();
             }
         } catch (RuntimeException e){
