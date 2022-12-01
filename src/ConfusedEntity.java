@@ -10,12 +10,15 @@ public class ConfusedEntity extends MovableEntity implements ExecutableEntity{
         super(id,position,images,animationPeriod,actionPeriod);
     }
 
-    public boolean moveToFairy(
+    public boolean moveToConf(
             WorldModel world,
-            Entity target,
+            LasagnaEntity target,
             EventScheduler scheduler) {
         if (adjacent(this.getPosition(), target.getPosition())) {
-            world.removeEntity(target);
+            target.subHealth();
+            if (target.getHealth() == 0){
+                world.removeEntity(target);
+            }
             scheduler.unscheduleAllEvents(target);
             return true;
         } else {
@@ -39,8 +42,8 @@ public class ConfusedEntity extends MovableEntity implements ExecutableEntity{
             EventScheduler scheduler){
         List<Class> l = new ArrayList<>();
         l.add(TreeEntity.class);
-        Entity fairyTarget = VirtualWorld.theDude;
-        moveToFairy(world, fairyTarget, scheduler);
+        LasagnaEntity fairyTarget = VirtualWorld.theDude;
+        moveToConf(world, fairyTarget, scheduler);
 
 
 

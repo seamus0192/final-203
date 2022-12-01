@@ -8,11 +8,21 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
     private int resourceLimit;
     private String facing;
 
+    public static int health = 10;
+
     public LasagnaEntity(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int resourceLimit) {
         super(id, position, images, animationPeriod, actionPeriod);
         this.resourceLimit = resourceLimit;
         this.facing = "right";
     }
+
+    public void addHealth(){health +=2;}
+
+    public void addBigHealth(){health += 10;}
+
+    public void subHealth(){health--;}
+
+    public int getHealth() {return health;}
 
     public void setFacing(String facing) {
         this.facing = facing;

@@ -66,7 +66,7 @@ public final class VirtualWorld extends PApplet
         task = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                GarfieldEntity f = new GarfieldEntity("fairy",new Point(rand.nextInt(41),0),imageStore.getImageList("fairy"),1,1);
+                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),1,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
@@ -74,14 +74,14 @@ public final class VirtualWorld extends PApplet
         task2 = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                GarfieldEntity f = new GarfieldEntity("fairy",new Point(rand.nextInt(41),rand.nextInt(15)),imageStore.getImageList("fairy"),100,1);
+                GarfieldEntity f = new GarfieldEntity("sillygarfield",new Point(rand.nextInt(41),rand.nextInt(25)),imageStore.getImageList("fairy"),100,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
         };
         Timer t = new Timer();
-        //t.scheduleAtFixedRate(task, 1000,1000);
-        t.scheduleAtFixedRate(task2, 2000,10000);
+        t.scheduleAtFixedRate(task, 10000,20000);
+        t.scheduleAtFixedRate(task2, 2000,5000);
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
@@ -106,7 +106,8 @@ public final class VirtualWorld extends PApplet
 
         view.drawViewport();
         textSize(20);
-        text(ProjectileEntity.kills,10,25);
+        text("Kills:" + ProjectileEntity.kills,10,25);
+        text("Health:" + LasagnaEntity.health,10,60);
     }
 
     // Just for debugging and for P5
