@@ -1,9 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.*;
 
-import com.sun.source.tree.Tree;
 import processing.core.*;
 
 public final class VirtualWorld extends PApplet
@@ -25,7 +23,7 @@ public final class VirtualWorld extends PApplet
     private static final String IMAGE_LIST_FILE_NAME = "imagelist";
     private static final String DEFAULT_IMAGE_NAME = "background_default";
     private static final int DEFAULT_IMAGE_COLOR = 0x808080;
-    public static DudeEntity theDude;
+    public static LasagnaEntity theDude;
 
     private static String LOAD_FILE_NAME = "world.sav";
 
@@ -68,7 +66,7 @@ public final class VirtualWorld extends PApplet
         task = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                FairyEntity f = new FairyEntity("fairy",new Point(rand.nextInt(41),0),imageStore.getImageList("fairy"),1,1);
+                GarfieldEntity f = new GarfieldEntity("fairy",new Point(rand.nextInt(41),0),imageStore.getImageList("fairy"),1,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
@@ -76,7 +74,7 @@ public final class VirtualWorld extends PApplet
         task2 = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                FairyEntity f = new FairyEntity("fairy",new Point(rand.nextInt(41),rand.nextInt(15)),imageStore.getImageList("fairy"),100,1);
+                GarfieldEntity f = new GarfieldEntity("fairy",new Point(rand.nextInt(41),rand.nextInt(15)),imageStore.getImageList("fairy"),100,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
@@ -94,8 +92,10 @@ public final class VirtualWorld extends PApplet
                 s1.scheduleActions(scheduler, world, imageStore);
             }
         }
-        theDude = new DudeEntity("dude",new Point(20,25),imageStore.getImageList("dude"),220,1000,3);
+        theDude = new LasagnaEntity("dude",new Point(20,25),imageStore.getImageList("dude"),220,1000,3);
         this.world.addEntity(theDude);
+        ConfusedEntity conf = new ConfusedEntity("confused",new Point(10,10), imageStore.getImageList("confused"),10,15);
+        this.world.addEntity(conf);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);

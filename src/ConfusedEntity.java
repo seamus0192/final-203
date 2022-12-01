@@ -55,7 +55,7 @@ public class ConfusedEntity extends MovableEntity implements ExecutableEntity{
 
     public Point nextPosition(WorldModel world, Point destPos) {
         Point newPos;
-        PathingStrategy pathing = new AStarPathingStrategy();
+        PathingStrategy pathing = new RandomPathing();
         List<Point> newPointsList = pathing.computePath(this.getPosition(), destPos,
                 p ->  world.withinBounds(p) && !(world.getOccupancyCell(p) instanceof ObstacleEntity),
                 MovableEntity::neighbors,

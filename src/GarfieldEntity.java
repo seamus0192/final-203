@@ -1,16 +1,15 @@
-import com.sun.source.tree.Tree;
 import processing.core.PImage;
 
 import java.util.*;
 
 
-public class FairyEntity extends MovableEntity implements ExecutableEntity{
+public class GarfieldEntity extends MovableEntity implements ExecutableEntity{
     private static int pathTimes = 0;
 
     private static final String SAPLING_KEY = "sapling";
 
 
-    public FairyEntity(String id, Point position, List<PImage> images,  int actionPeriod, int animationPeriod) {
+    public GarfieldEntity(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
         super(id,position,images,animationPeriod,actionPeriod);
     }
 

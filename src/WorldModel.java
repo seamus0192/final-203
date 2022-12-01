@@ -168,7 +168,7 @@ public final class WorldModel
         if (properties.length == FAIRY_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[FAIRY_COL]),
                     Integer.parseInt(properties[FAIRY_ROW]));
-            FairyEntity entity = new FairyEntity(properties[FAIRY_ID],
+            GarfieldEntity entity = new GarfieldEntity(properties[FAIRY_ID],
                     pt,imageStore.getImageList(FAIRY_KEY),
                     250,
                     Integer.parseInt(properties[FAIRY_ANIMATION_PERIOD]));

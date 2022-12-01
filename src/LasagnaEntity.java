@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import processing.core.PImage;
 
-public class DudeEntity extends MovableEntity implements ExecutableEntity {
+public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
     private int resourceLimit;
     private String facing;
 
-    public DudeEntity(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int resourceLimit) {
+    public LasagnaEntity(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int resourceLimit) {
         super(id, position, images, animationPeriod, actionPeriod);
         this.resourceLimit = resourceLimit;
         this.facing = "right";
