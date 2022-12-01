@@ -85,13 +85,7 @@ public final class VirtualWorld extends PApplet
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
-        for (int i = 0; i<= 42; i += 2) {
-            for (int j = 27; j <= 35; j+=2) {
-                TreeEntity s1 = new TreeEntity("tree", new Point(i, j), imageStore.getImageList("tree"), 10, 15, 15);
-                this.world.addEntity(s1);
-                s1.scheduleActions(scheduler, world, imageStore);
-            }
-        }
+
         theDude = new LasagnaEntity("dude",new Point(20,25),imageStore.getImageList("dude"),220,1000,3);
         this.world.addEntity(theDude);
         ConfusedEntity conf = new ConfusedEntity("confused",new Point(10,10), imageStore.getImageList("confused"),10,15);
