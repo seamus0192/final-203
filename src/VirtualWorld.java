@@ -133,21 +133,28 @@ public final class VirtualWorld extends PApplet
     }
 
     public void draw() {
-        long time = System.currentTimeMillis();
-        if (time >= nextTime) {
-            this.scheduler.updateOnTime(time);
-            nextTime = time + TIMER_ACTION_PERIOD;
-        }
+        try {
+            long time = System.currentTimeMillis();
+            if (time >= nextTime) {
+                this.scheduler.updateOnTime(time);
+                nextTime = time + TIMER_ACTION_PERIOD;
+            }
 
-        view.drawViewport();
-        textSize(20);
-        text("Kills:" + ProjectileEntity.kills,10,25);
-        text("Health:" + LasagnaEntity.health,10,60);
-        text("Points:" + LasagnaEntity.cooks, 1010,25);
-        if (LasagnaEntity.health == 0){
-            textSize(60);
-            text("GAME OVER", 300,500);
-            stop();
+            view.drawViewport();
+            textSize(20);
+            text("Kills:" + ProjectileEntity.kills, 10, 25);
+            text("Health:" + LasagnaEntity.health, 10, 60);
+            text("Points:" + LasagnaEntity.cooks, 1010, 25);
+            if (LasagnaEntity.health == 0) {
+                textSize(120);
+                fill(255,0,0);
+                text("GAME OVER", 260, 440);
+                textSize(60);
+                text("YOUR FINAL SCORE WAS: " + ProjectileEntity.kills,170,530);
+                stop();
+            }
+        } catch (RuntimeException e){
+            draw();
         }
     }
 
