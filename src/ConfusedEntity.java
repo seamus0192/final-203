@@ -14,7 +14,8 @@ public class ConfusedEntity extends MovableEntity implements ExecutableEntity{
             WorldModel world,
             LasagnaEntity target,
             EventScheduler scheduler) {
-        if (adjacent(this.getPosition(), target.getPosition()) && world.getOccupancyCell(target.getPosition()) instanceof LasagnaEntity) {
+        if (adjacent(this.getPosition(), target.getPosition()) && world.getOccupancyCell(target.getPosition()) instanceof LasagnaEntity
+                && !(world.getOccupancyCell(target.getPosition()) instanceof BombEntity)) {
             target.subHealth();
             if (target.getHealth() == 0){
                 world.removeEntity(target);
