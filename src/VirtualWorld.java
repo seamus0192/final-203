@@ -146,7 +146,7 @@ public final class VirtualWorld extends PApplet
 
             view.drawViewport();
             textSize(20);
-            text("Kills:" + ProjectileEntity.kills, 10, 25);
+//            text("Kills:" + ProjectileEntity.kills, 10, 25);
             text("Health:" + LasagnaEntity.health, 10, 50);
             text("Points:" + LasagnaEntity.cooks, 1010, 25);
             text("Bombs:" + bombCount, 10, 75);
@@ -156,7 +156,7 @@ public final class VirtualWorld extends PApplet
                 text("GAME OVER", 260, 440);
                 textSize(60);
                 text("YOUR FINAL SCORE WAS: " + LasagnaEntity.cooks,170,530);
-                stop();
+//                stop();
             }
         } catch (RuntimeException e){
             draw();
@@ -174,7 +174,9 @@ public final class VirtualWorld extends PApplet
         {
             scheduler.unscheduleAllEvents(world.getOccupancyCell(pressed));
             world.removeEntity(world.getOccupancyCell(pressed));
+            world.addEntity(new ExplosionEntity("explosion", pressed, imageStore.getImageList("explosion"), 0, 900));
             bombCount -= 1;
+//            world.removeEntityAt(pressed);
         }
 
         if (bombCount >= 3 && world.getOccupant(pressed).isPresent() && world.getOccupancyCell(pressed) instanceof AngryEntity)

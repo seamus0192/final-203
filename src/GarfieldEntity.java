@@ -4,9 +4,7 @@ import java.util.*;
 
 
 public class GarfieldEntity extends MovableEntity implements ExecutableEntity{
-    private static int pathTimes = 0;
 
-    private static final String SAPLING_KEY = "sapling";
 
 
     public GarfieldEntity(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
