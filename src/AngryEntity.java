@@ -46,11 +46,6 @@ public class AngryEntity extends MovableEntity implements ExecutableEntity{
         moveToAngry(world, fairyTarget, scheduler);
 
 
-
-//        if (fairyTarget.isPresent() && moveToFairy(world, fairyTarget.get(), scheduler)) {
-//            world.removeEntity(VirtualWorld.theDude);
-//        }
-
         scheduler.scheduleEvent(this,
                 new ActivityAction(this, world, imageStore),
                 getActionPeriod());

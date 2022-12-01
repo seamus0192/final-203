@@ -74,15 +74,14 @@ public final class VirtualWorld extends PApplet
         task = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),200,1);
+                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),150,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
         };
         task2 = new TimerTask() {
             public void run() {
-                Random rand = new Random();
-                GarfieldEntity f = new GarfieldEntity("sillygarfield",findNewRandomPoint(),imageStore.getImageList("fairy"),500,1);
+                GarfieldEntity f = new GarfieldEntity("sillygarfield",findNewRandomPoint(),imageStore.getImageList("fairy"),400,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
@@ -99,22 +98,18 @@ public final class VirtualWorld extends PApplet
                 world.addEntity(f);
             }
         };
-        //multiple to fix concurrent modification errors
         Timer t = new Timer();
-        Timer t1 = new Timer();
-        Timer t2 = new Timer();
-        Timer t3 = new Timer();
         t.scheduleAtFixedRate(task, 10000,20000);
-        t1.scheduleAtFixedRate(task2, 2000,5001);
-        t2.scheduleAtFixedRate(task3, 2000,10003);
-        t3.scheduleAtFixedRate(task4,10001,60000);
+        t.scheduleAtFixedRate(task2, 2000,5001);
+        t.scheduleAtFixedRate(task3, 2000,10003);
+        t.scheduleAtFixedRate(task4,10001,60000);
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
 
         lasagna = new LasagnaEntity("dude",new Point(20,25),imageStore.getImageList("dude"),220,1000,3);
         this.world.addEntity(lasagna);
-        ConfusedEntity conf = new ConfusedEntity("confused",findNewRandomPoint(), imageStore.getImageList("confused"),10,15);
+        ConfusedEntity conf = new ConfusedEntity("confused",findNewRandomPoint(), imageStore.getImageList("confused"),3,15);
         this.world.addEntity(conf);
 
 
@@ -152,9 +147,9 @@ public final class VirtualWorld extends PApplet
             view.drawViewport();
             textSize(20);
             text("Kills:" + ProjectileEntity.kills, 10, 25);
-            text("Health:" + LasagnaEntity.health, 10, 60);
+            text("Health:" + LasagnaEntity.health, 10, 50);
             text("Points:" + LasagnaEntity.cooks, 1010, 25);
-            text("Bombs:" + bombCount, 10, 95);
+            text("Bombs:" + bombCount, 10, 75);
             if (LasagnaEntity.health == 0) {
                 textSize(120);
                 fill(255,0,0);

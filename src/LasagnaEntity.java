@@ -18,7 +18,7 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
 
     public void addHealth(){health +=2;}
 
-    public void addBigHealth(){health += 10;}
+    public void addBigHealth(){health += 5;}
 
     public void addPoints(){cooks += 1;}
 
