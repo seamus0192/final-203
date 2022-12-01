@@ -83,7 +83,7 @@ public final class VirtualWorld extends PApplet
         };
         Timer t = new Timer();
         //t.scheduleAtFixedRate(task, 1000,1000);
-        t.scheduleAtFixedRate(task2, 2000,1000);
+        t.scheduleAtFixedRate(task2, 2000,10000);
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
@@ -171,9 +171,11 @@ public final class VirtualWorld extends PApplet
                     p = new Point(theDude.getPosition().x, theDude.getPosition().y+1);
                 }
             }
-            ProjectileEntity ball = new ProjectileEntity("projectile",p,imageStore.getImageList("projectile"),1,10,theDude.getFacing());
-            this.world.addEntity(ball);
-            ball.scheduleActions(scheduler, world,imageStore);
+            if (world.getOccupant(p).isEmpty()) {
+                ProjectileEntity ball = new ProjectileEntity("projectile", p, imageStore.getImageList("projectile"), 1, 10, theDude.getFacing());
+                this.world.addEntity(ball);
+                ball.scheduleActions(scheduler, world, imageStore);
+            }
 
         }
         if (key == CODED) {

@@ -1,11 +1,13 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class SingleStepPathingStrategy
+class RandomPathing
    implements PathingStrategy
 {
    public List<Point> computePath(Point start, Point end,
@@ -17,14 +19,16 @@ class SingleStepPathingStrategy
        * on each call, the caller will need to check if the destination
        * has been reached.
        */
-      return potentialNeighbors.apply(start)
+      List<Point> l = potentialNeighbors.apply(start)
          .filter(canPassThrough)
-         .filter(pt ->
-            !pt.equals(start)
-            && !pt.equals(end)
-            && Math.abs(end.x - pt.x) <= Math.abs(end.x - start.x)
-            && Math.abs(end.y - pt.y) <= Math.abs(end.y - start.y))
-         .limit(1)
          .collect(Collectors.toList());
+      Random r = new Random();
+
+      Point p =  l.get(r.nextInt(l.size()));
+      List<Point> retList = new ArrayList<>();
+      retList.add(p);
+      return retList;
+
+
    }
 }

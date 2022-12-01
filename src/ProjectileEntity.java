@@ -39,11 +39,7 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
             Point target,
             EventScheduler scheduler) {
                 Point nextPos = nextPosition(world, target);
-                Point nextnext = nextPosition(world, nextPos);
-                if(world.removeEntityAt(nextnext)){
-                    kills++;
-                }
-                else if (world.removeEntityAt(nextPos)){
+                if (world.removeEntityAt(nextPos)){
                     kills++;
                 }
                 if (!world.moveEntity( this, nextPos)){

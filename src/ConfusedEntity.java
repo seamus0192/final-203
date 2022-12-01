@@ -1,16 +1,12 @@
-import com.sun.source.tree.Tree;
 import processing.core.PImage;
 
 import java.util.*;
 
 
-public class FairyEntity extends MovableEntity implements ExecutableEntity{
-    private static int pathTimes = 0;
-
-    private static final String SAPLING_KEY = "sapling";
+public class ConfusedEntity extends MovableEntity implements ExecutableEntity{
 
 
-    public FairyEntity(String id, Point position, List<PImage> images,  int actionPeriod, int animationPeriod) {
+    public ConfusedEntity(String id, Point position, List<PImage> images,  int actionPeriod, int animationPeriod) {
         super(id,position,images,animationPeriod,actionPeriod);
     }
 
@@ -41,10 +37,10 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
             WorldModel world,
             ImageStore imageStore,
             EventScheduler scheduler){
-            List<Class> l = new ArrayList<>();
-            l.add(TreeEntity.class);
-            Entity fairyTarget = VirtualWorld.theDude;
-            moveToFairy(world, fairyTarget, scheduler);
+        List<Class> l = new ArrayList<>();
+        l.add(TreeEntity.class);
+        Entity fairyTarget = VirtualWorld.theDude;
+        moveToFairy(world, fairyTarget, scheduler);
 
 
 
@@ -58,30 +54,30 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
     }
 
     public Point nextPosition(WorldModel world, Point destPos) {
-            Point newPos;
-            PathingStrategy pathing = new AStarPathingStrategy();
-            List<Point> newPointsList = pathing.computePath(this.getPosition(), destPos,
-                    p ->  world.withinBounds(p) && !(world.getOccupancyCell(p) instanceof ObstacleEntity),
-                    MovableEntity::neighbors,
-                    PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
+        Point newPos;
+        PathingStrategy pathing = new AStarPathingStrategy();
+        List<Point> newPointsList = pathing.computePath(this.getPosition(), destPos,
+                p ->  world.withinBounds(p) && !(world.getOccupancyCell(p) instanceof ObstacleEntity),
+                MovableEntity::neighbors,
+                PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
 
-            if(newPointsList.size() != 0)
-                newPos = newPointsList.get(0);
-            else{
-                newPos = getPosition();
-            }
-            return newPos;
+        if(newPointsList.size() != 0)
+            newPos = newPointsList.get(0);
+        else{
+            newPos = getPosition();
+        }
+        return newPos;
     }
 
     public void scheduleActions(
             EventScheduler scheduler,
             WorldModel world,
             ImageStore imageStore) {
-                scheduler.scheduleEvent(this,
-                        new ActivityAction(this, world, imageStore),
-                        getActionPeriod());
-                scheduler.scheduleEvent(this,
-                        new AnimationAction(this,0),
-                        getAnimationPeriod());
+        scheduler.scheduleEvent(this,
+                new ActivityAction(this, world, imageStore),
+                getActionPeriod());
+        scheduler.scheduleEvent(this,
+                new AnimationAction(this,0),
+                getAnimationPeriod());
     }
 }

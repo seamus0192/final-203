@@ -8,11 +8,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class AStarPathingStrategy
-//        implements PathingStrategy
+class AStarPathingStrategy implements PathingStrategy
 {
 
-    public static List<Point> computePath(Point start, Point end,
+    public List<Point> computePath(Point start, Point end,
                                    Predicate<Point> canPassThrough,
                                    BiPredicate<Point, Point> withinReach,
                                    Function<Point, Stream<Point>> potentialNeighbors)
