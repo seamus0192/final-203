@@ -48,6 +48,10 @@ public final class VirtualWorld extends PApplet
 
     public static MicrowaveEntity Microwave;
 
+    public static BombEntity bomb;
+
+    public static int bombCount;
+
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
     }
@@ -86,6 +90,8 @@ public final class VirtualWorld extends PApplet
             public void run() {
                 CheeseEntity f = new CheeseEntity("cheesy", findNewRandomPoint(),imageStore.getImageList("stump"));
                 world.addEntity(f);
+
+
             }
         };
         //multiple to fix concurrent modification errors
@@ -107,6 +113,10 @@ public final class VirtualWorld extends PApplet
 
         Microwave = new MicrowaveEntity("microwave", findNewRandomPoint(), imageStore.getImageList("microwave"), 15, 15);
         this.world.addEntity(Microwave);
+
+        bomb = new BombEntity("bomb", findNewRandomPoint(), imageStore.getImageList("bomb"), 0, 0);
+        world.addEntity(bomb);
+
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);
@@ -136,6 +146,7 @@ public final class VirtualWorld extends PApplet
         text("Kills:" + ProjectileEntity.kills,10,25);
         text("Health:" + LasagnaEntity.health,10,60);
         text("Points:" + LasagnaEntity.cooks, 1010,25);
+        text("Bombs: " + bombCount, 10, 95);
         if (LasagnaEntity.health == 0){
             textSize(60);
             text("GAME OVER", 300,500);
