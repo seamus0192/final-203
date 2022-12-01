@@ -41,16 +41,11 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
             WorldModel world,
             ImageStore imageStore,
             EventScheduler scheduler){
-        List<Class> l = new ArrayList<>();
-        l.add(TreeEntity.class);
-        Optional<Entity> fairyTarget = world.findNearest(this.getPosition(),l);
-        Random rand = new Random();
+            List<Class> l = new ArrayList<>();
+            l.add(TreeEntity.class);
+            Entity fairyTarget = VirtualWorld.theDude;
+            moveToFairy(world, fairyTarget, scheduler);
 
-        if (fairyTarget.isPresent()){
-            if (moveToFairy(world, fairyTarget.get(), scheduler)) {
-                ((TreeEntity)fairyTarget.get()).subHealth();
-        }
-        }
 
 
 //        if (fairyTarget.isPresent() && moveToFairy(world, fairyTarget.get(), scheduler)) {

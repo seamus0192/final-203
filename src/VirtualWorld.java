@@ -76,19 +76,19 @@ public final class VirtualWorld extends PApplet
         task2 = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                FairyEntity f = new FairyEntity("fairy",new Point(rand.nextInt(41),2),imageStore.getImageList("fairy"),1,1);
+                FairyEntity f = new FairyEntity("fairy",new Point(rand.nextInt(41),2),imageStore.getImageList("fairy"),100,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
         };
         Timer t = new Timer();
         //t.scheduleAtFixedRate(task, 1000,1000);
-        t.scheduleAtFixedRate(task2, 20000,1000);
+        t.scheduleAtFixedRate(task2, 2000,1000);
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
-        for (int i = 1; i<= 40; i += 2) {
-            for (int j = 28; j <= 35; j+=3) {
+        for (int i = 0; i<= 42; i += 2) {
+            for (int j = 27; j <= 35; j+=2) {
                 TreeEntity s1 = new TreeEntity("tree", new Point(i, j), imageStore.getImageList("tree"), 10, 15, 15);
                 this.world.addEntity(s1);
                 s1.scheduleActions(scheduler, world, imageStore);
@@ -267,6 +267,7 @@ public final class VirtualWorld extends PApplet
             }
         }
     }
+
 
     public static void main(String[] args) {
         parseCommandLine(args);
