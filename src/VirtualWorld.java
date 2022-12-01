@@ -46,6 +46,7 @@ public final class VirtualWorld extends PApplet
     private TimerTask task2;
     private TimerTask task3;
     private TimerTask task4;
+    private TimerTask task5;
 
     public static MicrowaveEntity Microwave;
 
@@ -169,13 +170,24 @@ public final class VirtualWorld extends PApplet
 //        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
 
 //        Optional<Entity> entityOptional = world.getOccupant(pressed);
-        if (bombCount >= 1 && world.getOccupant(pressed).isPresent() && world.getOccupancyCell(pressed) instanceof GarfieldEntity)
-        {
+        if (bombCount >= 1 && world.getOccupant(pressed).isPresent() && world.getOccupancyCell(pressed) instanceof GarfieldEntity) {
             scheduler.unscheduleAllEvents(world.getOccupancyCell(pressed));
+            ExplosionEntity newExplosion = new ExplosionEntity("explosion", pressed, imageStore.getImageList("explosion"), 0, 900);
             world.removeEntity(world.getOccupancyCell(pressed));
-            world.addEntity(new ExplosionEntity("explosion", pressed, imageStore.getImageList("explosion"), 0, 900));
+            world.addEntity(newExplosion);
             bombCount -= 1;
-//            world.removeEntityAt(pressed);
+//            if (VirtualWorld.lasagna.getPosition() != pressed) {
+//                world.removeEntityAt(pressed);
+//            }
+            Timer t5 = new Timer();
+
+            task5 = new TimerTask() {
+                public void run() {
+                    world.removeEntity(newExplosion);
+                }
+            };
+
+            t5.scheduleAtFixedRate(task5,500,50);
         }
 
         if (bombCount >= 3 && world.getOccupant(pressed).isPresent() && world.getOccupancyCell(pressed) instanceof AngryEntity)
