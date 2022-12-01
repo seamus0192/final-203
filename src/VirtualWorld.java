@@ -74,7 +74,7 @@ public final class VirtualWorld extends PApplet
         task2 = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                GarfieldEntity f = new GarfieldEntity("sillygarfield",new Point(rand.nextInt(41),rand.nextInt(25)),imageStore.getImageList("fairy"),100,1);
+                GarfieldEntity f = new GarfieldEntity("sillygarfield",new Point(rand.nextInt(41),rand.nextInt(25)),imageStore.getImageList("fairy"),500,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
@@ -108,6 +108,9 @@ public final class VirtualWorld extends PApplet
         textSize(20);
         text("Kills:" + ProjectileEntity.kills,10,25);
         text("Health:" + LasagnaEntity.health,10,60);
+        if (LasagnaEntity.health == 0){
+            stop();
+        }
     }
 
     // Just for debugging and for P5
