@@ -76,7 +76,7 @@ public final class VirtualWorld extends PApplet
         task2 = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                FairyEntity f = new FairyEntity("fairy",new Point(rand.nextInt(41),2),imageStore.getImageList("fairy"),100,1);
+                FairyEntity f = new FairyEntity("fairy",new Point(rand.nextInt(41),rand.nextInt(15)),imageStore.getImageList("fairy"),100,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
@@ -111,7 +111,8 @@ public final class VirtualWorld extends PApplet
         }
 
         view.drawViewport();
-        text("Lasagna",3,3);
+        textSize(20);
+        text(ProjectileEntity.kills,10,25);
     }
 
     // Just for debugging and for P5
@@ -149,10 +150,10 @@ public final class VirtualWorld extends PApplet
             theDude.setFacing("left");
             theDude.nextPosition(this.world,p);
         }
-        if (key == 'd'){
-            Point p = new Point(theDude.getPosition().getX()+1, theDude.getPosition().getY());
+        if (key == 'd') {
+            Point p = new Point(theDude.getPosition().getX() + 1, theDude.getPosition().getY());
             theDude.setFacing("right");
-            theDude.nextPosition(this.world,p);
+            theDude.nextPosition(this.world, p);
         }
         if (key == ' '){
             Point p = theDude.getPosition();

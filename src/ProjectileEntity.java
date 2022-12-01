@@ -7,6 +7,7 @@ import java.util.Random;
 public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
 
     private String dir;
+    public static int kills;
 
 
     public ProjectileEntity(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, String dir) {
@@ -39,8 +40,12 @@ public class ProjectileEntity extends MovableEntity implements ExecutableEntity{
             EventScheduler scheduler) {
                 Point nextPos = nextPosition(world, target);
                 Point nextnext = nextPosition(world,nextPos);
-                world.removeEntityAt(nextnext);
-                world.removeEntityAt(nextPos);
+                if(world.removeEntityAt(nextnext)){
+                    kills++;
+                }
+                else if (world.removeEntityAt(nextPos)){
+                    kills++;
+                }
                 if (!world.moveEntity( this, nextPos)){
                     world.removeEntity(this);
                 }

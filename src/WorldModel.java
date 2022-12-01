@@ -359,7 +359,7 @@ public final class WorldModel
         removeEntityAt(entity.getPosition());
     }
 
-    public  void removeEntityAt( Point pos) {
+    public  boolean removeEntityAt( Point pos) {
         if (withinBounds(pos) && getOccupancyCell(pos) != null) {
             Entity entity = getOccupancyCell(pos);
 
@@ -368,7 +368,9 @@ public final class WorldModel
             entity.setPosition(new Point(-1, -1));
             entities.remove(entity);
             setOccupancyCell(pos, null);
+            return true;
         }
+        return false;
     }
 
     public Background getBackgroundCell(Point pos) {
