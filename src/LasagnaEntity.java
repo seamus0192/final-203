@@ -48,6 +48,13 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
             world.addEntity(VirtualWorld.Microwave);
         }
 
+        if (world.getOccupant(destPos).isPresent() && world.getOccupant(destPos).get() instanceof BombEntity){
+            world.removeEntityAt(destPos);
+            VirtualWorld.bomb.setPosition(findNewRandomPoint(world));
+            VirtualWorld.bombCount++;
+            world.addEntity(VirtualWorld.bomb);
+        }
+
         if (!world.isOccupied(destPos)) {
             world.moveEntity(this, destPos);
             return destPos;

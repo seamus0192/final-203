@@ -45,7 +45,6 @@ public final class VirtualWorld extends PApplet
     private TimerTask task;
     private TimerTask task2;
     private TimerTask task3;
-    private TimerTask task4;
 
     public static MicrowaveEntity Microwave;
 
@@ -89,22 +88,13 @@ public final class VirtualWorld extends PApplet
                 world.addEntity(f);
             }
         };
-        task4 = new TimerTask() {
-            public void run() {
-                SauceEntity f = new SauceEntity("saucy", findNewRandomPoint(),imageStore.getImageList("sauce"));
-                world.addEntity(f);
-            }
-        };
         //multiple to fix concurrent modification errors
         Timer t = new Timer();
         Timer t1 = new Timer();
         Timer t2 = new Timer();
-        Timer t3 = new Timer();
         t.scheduleAtFixedRate(task, 10000,20000);
-        t1.scheduleAtFixedRate(task2, 2001,5001);
+        t1.scheduleAtFixedRate(task2, 2000,5001);
         t2.scheduleAtFixedRate(task3, 2000,10003);
-        t3.scheduleAtFixedRate(task4, 20002,40002);
-
 
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
@@ -135,27 +125,21 @@ public final class VirtualWorld extends PApplet
     }
 
     public void draw() {
-        try {
-            long time = System.currentTimeMillis();
-            if (time >= nextTime) {
-                this.scheduler.updateOnTime(time);
-                nextTime = time + TIMER_ACTION_PERIOD;
-            }
+        long time = System.currentTimeMillis();
+        if (time >= nextTime) {
+            this.scheduler.updateOnTime(time);
+            nextTime = time + TIMER_ACTION_PERIOD;
+        }
 
-            view.drawViewport();
-            textSize(20);
-            text("Kills:" + ProjectileEntity.kills, 10, 25);
-            text("Health:" + LasagnaEntity.health, 10, 60);
-            text("Points:" + LasagnaEntity.cooks, 1010, 25);
-            if (LasagnaEntity.health == 0) {
-                fill(255,0,0);
-                textSize(60);
-                text("GAME OVER", 350, 450);
-                stop();
-            }
-        } catch (ConcurrentModificationException e)
-        {
-            draw();
+        view.drawViewport();
+        textSize(20);
+        text("Kills:" + ProjectileEntity.kills,10,25);
+        text("Health:" + LasagnaEntity.health,10,60);
+        text("Points:" + LasagnaEntity.cooks, 1010,25);
+        if (LasagnaEntity.health == 0){
+            textSize(60);
+            text("GAME OVER", 300,500);
+            stop();
         }
     }
 
