@@ -9,6 +9,7 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
     private String facing;
 
     public static int health = 10;
+    public static int cooks = 0;
 
     public LasagnaEntity(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int resourceLimit) {
         super(id, position, images, animationPeriod, actionPeriod);
