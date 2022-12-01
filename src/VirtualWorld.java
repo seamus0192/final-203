@@ -108,6 +108,7 @@ public final class VirtualWorld extends PApplet
         textSize(20);
         text("Kills:" + ProjectileEntity.kills,10,25);
         text("Health:" + LasagnaEntity.health,10,60);
+        text("Points:" + LasagnaEntity.cooks, 1010,25);
         if (LasagnaEntity.health == 0){
             stop();
         }
