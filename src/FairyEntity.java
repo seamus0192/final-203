@@ -1,3 +1,4 @@
+import com.sun.source.tree.Tree;
 import processing.core.PImage;
 
 import java.util.*;
@@ -40,23 +41,15 @@ public class FairyEntity extends MovableEntity implements ExecutableEntity{
             WorldModel world,
             ImageStore imageStore,
             EventScheduler scheduler){
-        Entity fairyTarget = VirtualWorld.theDude;
+        List<Class> l = new ArrayList<>();
+        l.add(TreeEntity.class);
+        Optional<Entity> fairyTarget = world.findNearest(this.getPosition(),l);
         Random rand = new Random();
 
-        if (moveToFairy(world, fairyTarget, scheduler)) {
-            Point newRandomPoint = new Point(rand.nextInt(42), rand.nextInt(29));
-            while(world.isOccupied(newRandomPoint)) {
-//                if(!world.isOccupied(newRandomPoint))
-//                {
-//                    VirtualWorld.theDude.setPosition(newRandomPoint);
-//                    break;
-//                }
-                newRandomPoint = new Point(rand.nextInt(42), rand.nextInt(29));
-            }
-                VirtualWorld.theDude.setPosition(newRandomPoint);
-
-
-            world.addEntity(VirtualWorld.theDude);
+        if (fairyTarget.isPresent()){
+            if (moveToFairy(world, fairyTarget.get(), scheduler)) {
+                ((TreeEntity)fairyTarget.get()).subHealth();
+        }
         }
 
 

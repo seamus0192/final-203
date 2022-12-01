@@ -1,11 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.Scanner;
-import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
+import com.sun.source.tree.Tree;
 import processing.core.*;
 
 public final class VirtualWorld extends PApplet
@@ -47,6 +45,7 @@ public final class VirtualWorld extends PApplet
     public long nextTime;
 
     private TimerTask task;
+    private TimerTask task2;
 
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
@@ -68,16 +67,34 @@ public final class VirtualWorld extends PApplet
 
         task = new TimerTask() {
             public void run() {
-                FairyEntity f = new FairyEntity("fairy",new Point(1,1),imageStore.getImageList("fairy"),1,1);
+                Random rand = new Random();
+                FairyEntity f = new FairyEntity("fairy",new Point(rand.nextInt(41),0),imageStore.getImageList("fairy"),1,1);
+                world.addEntity(f);
+                f.scheduleActions( scheduler, world,imageStore);
+            }
+        };
+        task2 = new TimerTask() {
+            public void run() {
+                Random rand = new Random();
+                FairyEntity f = new FairyEntity("fairy",new Point(rand.nextInt(41),2),imageStore.getImageList("fairy"),1,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
         };
         Timer t = new Timer();
-        t.scheduleAtFixedRate(task, 1000,5000);
+        //t.scheduleAtFixedRate(task, 1000,1000);
+        t.scheduleAtFixedRate(task2, 20000,1000);
+
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
-        theDude = new DudeEntity("dude",new Point(20,15),imageStore.getImageList("dude"),220,1000,3);
+        for (int i = 1; i<= 40; i += 2) {
+            for (int j = 28; j <= 35; j+=3) {
+                TreeEntity s1 = new TreeEntity("tree", new Point(i, j), imageStore.getImageList("tree"), 10, 15, 15);
+                this.world.addEntity(s1);
+                s1.scheduleActions(scheduler, world, imageStore);
+            }
+        }
+        theDude = new DudeEntity("dude",new Point(20,25),imageStore.getImageList("dude"),220,1000,3);
         this.world.addEntity(theDude);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 

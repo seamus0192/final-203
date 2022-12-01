@@ -18,6 +18,8 @@ public abstract class PlantEntity extends AnimatableEntity implements Executable
 
     public void addHealth(){this.health++;}
 
+    public void subHealth(){this.health--;}
+
     public int getActionPeriod() {
         return actionPeriod;
     }
