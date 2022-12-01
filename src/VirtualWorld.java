@@ -102,6 +102,10 @@ public final class VirtualWorld extends PApplet
         this.world.addEntity(theDude);
         ConfusedEntity conf = new ConfusedEntity("confused",new Point(10,10), imageStore.getImageList("confused"),10,15);
         this.world.addEntity(conf);
+
+        Random rand2 = new Random();
+        TreeEntity micro = new TreeEntity("microwave", new Point(rand2.nextInt(41),rand2.nextInt(25)), imageStore.getImageList("microwave"), 50, 15, 15);
+        this.world.addEntity(micro);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);

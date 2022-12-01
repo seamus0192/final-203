@@ -185,7 +185,7 @@ public final class WorldModel
         if (properties.length == HOUSE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[HOUSE_COL]),
                     Integer.parseInt(properties[HOUSE_ROW]));
-            HouseEntity entity = new HouseEntity(properties[HOUSE_ID], pt,
+            MicrowaveEntity entity = new MicrowaveEntity(properties[HOUSE_ID], pt,
                     imageStore.getImageList(HOUSE_KEY));
             tryAddEntity(entity);
         }
