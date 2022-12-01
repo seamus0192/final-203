@@ -66,7 +66,7 @@ public final class VirtualWorld extends PApplet
         task = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),1,1);
+                AngryEntity f = new AngryEntity("angry",new Point(rand.nextInt(41),3),imageStore.getImageList("angry"),100,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
