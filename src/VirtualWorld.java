@@ -23,7 +23,7 @@ public final class VirtualWorld extends PApplet
     private static final String IMAGE_LIST_FILE_NAME = "imagelist";
     private static final String DEFAULT_IMAGE_NAME = "background_default";
     private static final int DEFAULT_IMAGE_COLOR = 0x808080;
-    public static LasagnaEntity theDude;
+    public static LasagnaEntity lasagna;
 
     private static String LOAD_FILE_NAME = "world.sav";
 
@@ -98,8 +98,8 @@ public final class VirtualWorld extends PApplet
 
         loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
 
-        theDude = new LasagnaEntity("dude",new Point(20,25),imageStore.getImageList("dude"),220,1000,3);
-        this.world.addEntity(theDude);
+        lasagna = new LasagnaEntity("dude",new Point(20,25),imageStore.getImageList("dude"),220,1000,3);
+        this.world.addEntity(lasagna);
         ConfusedEntity conf = new ConfusedEntity("confused",new Point(10,10), imageStore.getImageList("confused"),10,15);
         this.world.addEntity(conf);
 
@@ -151,43 +151,43 @@ public final class VirtualWorld extends PApplet
     }
     public void keyPressed() {
         if (key == 's'){
-            Point p = new Point(theDude.getPosition().getX(), theDude.getPosition().getY()+1);
-            theDude.setFacing("down");
-            theDude.nextPosition(this.world,p);
+            Point p = new Point(lasagna.getPosition().getX(), lasagna.getPosition().getY()+1);
+            lasagna.setFacing("down");
+            lasagna.nextPosition(this.world,p);
         }
         if (key == 'w'){
-            Point p = new Point(theDude.getPosition().getX(), theDude.getPosition().getY()-1);
-            theDude.setFacing("up");
-            theDude.nextPosition(this.world,p);
+            Point p = new Point(lasagna.getPosition().getX(), lasagna.getPosition().getY()-1);
+            lasagna.setFacing("up");
+            lasagna.nextPosition(this.world,p);
         }
         if (key == 'a'){
-            Point p = new Point(theDude.getPosition().getX()-1, theDude.getPosition().getY());
-            theDude.setFacing("left");
-            theDude.nextPosition(this.world,p);
+            Point p = new Point(lasagna.getPosition().getX()-1, lasagna.getPosition().getY());
+            lasagna.setFacing("left");
+            lasagna.nextPosition(this.world,p);
         }
         if (key == 'd') {
-            Point p = new Point(theDude.getPosition().getX() + 1, theDude.getPosition().getY());
-            theDude.setFacing("right");
-            theDude.nextPosition(this.world, p);
+            Point p = new Point(lasagna.getPosition().getX() + 1, lasagna.getPosition().getY());
+            lasagna.setFacing("right");
+            lasagna.nextPosition(this.world, p);
         }
         if (key == ' '){
-            Point p = theDude.getPosition();
-            switch (theDude.getFacing()){
+            Point p = lasagna.getPosition();
+            switch (lasagna.getFacing()){
                 case ("right") -> {
-                    p = new Point(theDude.getPosition().x + 1, theDude.getPosition().y);
+                    p = new Point(lasagna.getPosition().x + 1, lasagna.getPosition().y);
                 }
                 case ("left") -> {
-                    p = new Point(theDude.getPosition().x-1, theDude.getPosition().y);
+                    p = new Point(lasagna.getPosition().x-1, lasagna.getPosition().y);
                 }
                 case ("up") -> {
-                    p = new Point(theDude.getPosition().x, theDude.getPosition().y-1);
+                    p = new Point(lasagna.getPosition().x, lasagna.getPosition().y-1);
                 }
                 case ("down") -> {
-                    p = new Point(theDude.getPosition().x, theDude.getPosition().y+1);
+                    p = new Point(lasagna.getPosition().x, lasagna.getPosition().y+1);
                 }
             }
             if (world.getOccupant(p).isEmpty()) {
-                ProjectileEntity ball = new ProjectileEntity("projectile", p, imageStore.getImageList("projectile"), 1, 10, theDude.getFacing());
+                ProjectileEntity ball = new ProjectileEntity("projectile", p, imageStore.getImageList("projectile"), 1, 10, lasagna.getFacing());
                 this.world.addEntity(ball);
                 ball.scheduleActions(scheduler, world, imageStore);
             }
