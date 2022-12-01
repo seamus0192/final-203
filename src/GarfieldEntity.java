@@ -17,7 +17,7 @@ public class GarfieldEntity extends MovableEntity implements ExecutableEntity{
             WorldModel world,
             LasagnaEntity target,
             EventScheduler scheduler) {
-        if (adjacent(this.getPosition(), target.getPosition())) {
+        if (adjacent(this.getPosition(), target.getPosition()) && world.getOccupancyCell(target.getPosition()) instanceof LasagnaEntity) {
             target.subHealth();
             if (target.getHealth() == 0){
                 world.removeEntity(target);
