@@ -47,6 +47,7 @@ public final class VirtualWorld extends PApplet
     private TimerTask task3;
     private TimerTask task4;
     private TimerTask task5;
+    private TimerTask task6;
 
     public static MicrowaveEntity Microwave;
 
@@ -193,8 +194,20 @@ public final class VirtualWorld extends PApplet
         if (bombCount >= 3 && world.getOccupant(pressed).isPresent() && world.getOccupancyCell(pressed) instanceof AngryEntity)
         {
             scheduler.unscheduleAllEvents(world.getOccupancyCell(pressed));
+            ExplosionEntity newExplosion = new ExplosionEntity("explosion", pressed, imageStore.getImageList("explosion"), 0, 900);
             world.removeEntity(world.getOccupancyCell(pressed));
+            world.addEntity(newExplosion);
             bombCount -= 3;
+
+            Timer t6 = new Timer();
+
+            task6 = new TimerTask() {
+                public void run() {
+                    world.removeEntity(newExplosion);
+                }
+            };
+
+            t6.scheduleAtFixedRate(task6,500,50);
         }
 
     }
