@@ -46,6 +46,8 @@ public final class VirtualWorld extends PApplet
     private TimerTask task2;
     private TimerTask task3;
 
+    public static MicrowaveEntity Microwave;
+
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
     }
@@ -75,15 +77,14 @@ public final class VirtualWorld extends PApplet
         task2 = new TimerTask() {
             public void run() {
                 Random rand = new Random();
-                GarfieldEntity f = new GarfieldEntity("sillygarfield",new Point(rand.nextInt(41),rand.nextInt(25)),imageStore.getImageList("fairy"),500,1);
+                GarfieldEntity f = new GarfieldEntity("sillygarfield",findNewRandomPoint(),imageStore.getImageList("fairy"),500,1);
                 world.addEntity(f);
                 f.scheduleActions( scheduler, world,imageStore);
             }
         };
         task3 = new TimerTask() {
             public void run() {
-                Random rand = new Random();
-                CheeseEntity f = new CheeseEntity("cheesy",new Point(rand.nextInt(41),rand.nextInt(29)),imageStore.getImageList("stump"));
+                CheeseEntity f = new CheeseEntity("cheesy", findNewRandomPoint(),imageStore.getImageList("stump"));
                 world.addEntity(f);
             }
         };
@@ -100,17 +101,27 @@ public final class VirtualWorld extends PApplet
 
         lasagna = new LasagnaEntity("dude",new Point(20,25),imageStore.getImageList("dude"),220,1000,3);
         this.world.addEntity(lasagna);
-        ConfusedEntity conf = new ConfusedEntity("confused",new Point(10,10), imageStore.getImageList("confused"),10,15);
+        ConfusedEntity conf = new ConfusedEntity("confused",findNewRandomPoint(), imageStore.getImageList("confused"),10,15);
         this.world.addEntity(conf);
 
-        Random rand2 = new Random();
-        MicrowaveEntity micro = new MicrowaveEntity("microwave", new Point(rand2.nextInt(41),rand2.nextInt(25)), imageStore.getImageList("microwave"),  15, 15);
-        this.world.addEntity(micro);
+
+        Microwave = new MicrowaveEntity("microwave", findNewRandomPoint(), imageStore.getImageList("microwave"), 15, 15);
+        this.world.addEntity(Microwave);
         loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);
 
         nextTime = System.currentTimeMillis() + TIMER_ACTION_PERIOD;
+    }
+
+    public Point findNewRandomPoint()
+    {
+        Random rand2 = new Random();
+        Point finalRandom = new Point(rand2.nextInt(41),rand2.nextInt(29));
+        while(this.world.isOccupied(finalRandom))
+            finalRandom = new Point(rand2.nextInt(41),rand2.nextInt(29));
+
+        return finalRandom;
     }
 
     public void draw() {
@@ -161,6 +172,7 @@ public final class VirtualWorld extends PApplet
             Point p = new Point(lasagna.getPosition().getX(), lasagna.getPosition().getY()-1);
             lasagna.setFacing("up");
             lasagna.nextPosition(this.world,p);
+//            if(world.getOccupant(lasagna.nextPosition(this.world,p)) instanceof MicrowaveEntity)
         }
         if (key == 'a'){
             Point p = new Point(lasagna.getPosition().getX()-1, lasagna.getPosition().getY());

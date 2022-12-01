@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import com.sun.source.tree.Tree;
 import processing.core.PImage;
 
 public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
@@ -21,6 +20,8 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
 
     public void addBigHealth(){health += 10;}
 
+    public void addPoints(){cooks += 1;}
+
     public void subHealth(){health--;}
 
     public int getHealth() {return health;}
@@ -39,12 +40,30 @@ public class LasagnaEntity extends MovableEntity implements ExecutableEntity {
             addHealth();
             world.removeEntityAt(destPos);
         }
+
+        if (world.getOccupant(destPos).isPresent() && world.getOccupant(destPos).get() instanceof MicrowaveEntity){
+            addPoints();
+            world.removeEntityAt(destPos);
+            VirtualWorld.Microwave.setPosition(findNewRandomPoint(world));
+            world.addEntity(VirtualWorld.Microwave);
+        }
+
         if (!world.isOccupied(destPos)) {
             world.moveEntity(this, destPos);
             return destPos;
         } else {
             return this.getPosition();
         }
+    }
+
+    public Point findNewRandomPoint(WorldModel world)
+    {
+        Random rand2 = new Random();
+        Point finalRandom = new Point(rand2.nextInt(41),rand2.nextInt(29));
+        while(world.isOccupied(finalRandom))
+            finalRandom = new Point(rand2.nextInt(41),rand2.nextInt(29));
+
+        return finalRandom;
     }
 
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
