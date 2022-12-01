@@ -49,11 +49,6 @@ public class GarfieldEntity extends MovableEntity implements ExecutableEntity{
             moveToFairy(world, fairyTarget, scheduler);
 
 
-
-//        if (fairyTarget.isPresent() && moveToFairy(world, fairyTarget.get(), scheduler)) {
-//            world.removeEntity(VirtualWorld.theDude);
-//        }
-
         scheduler.scheduleEvent(this,
                 new ActivityAction(this, world, imageStore),
                 getActionPeriod());

@@ -4,9 +4,6 @@ import java.util.*;
 
 
 public class AngryEntity extends MovableEntity implements ExecutableEntity{
-    private static int pathTimes = 0;
-
-    private static final String SAPLING_KEY = "sapling";
 
 
     public AngryEntity(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {

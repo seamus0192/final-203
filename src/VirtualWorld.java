@@ -154,6 +154,7 @@ public final class VirtualWorld extends PApplet
             text("Kills:" + ProjectileEntity.kills, 10, 25);
             text("Health:" + LasagnaEntity.health, 10, 60);
             text("Points:" + LasagnaEntity.cooks, 1010, 25);
+            text("Bombs:" + bombCount, 10, 95);
             if (LasagnaEntity.health == 0) {
                 textSize(120);
                 fill(255,0,0);
@@ -179,7 +180,13 @@ public final class VirtualWorld extends PApplet
             scheduler.unscheduleAllEvents(world.getOccupancyCell(pressed));
             world.removeEntity(world.getOccupancyCell(pressed));
             bombCount -= 1;
-            //System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
+        }
+
+        if (bombCount >= 3 && world.getOccupant(pressed).isPresent() && world.getOccupancyCell(pressed) instanceof AngryEntity)
+        {
+            scheduler.unscheduleAllEvents(world.getOccupancyCell(pressed));
+            world.removeEntity(world.getOccupancyCell(pressed));
+            bombCount -= 3;
         }
 
     }
